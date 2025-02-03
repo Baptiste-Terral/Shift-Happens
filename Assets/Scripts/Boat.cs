@@ -20,14 +20,27 @@ public class Boat : MonoBehaviour
     
     public void Heal(int amount)
     {
-        _health += amount;
-        Debug.Log("Boat healed, current health: " + _health);
+		if (_health + amount > 100)
+		{
+			_health = 100;
+		}
+		else
+	    {	
+	 		_health += amount;
+		}
     }
 
     public void TakeDamage(int amount)
     {
-        _health -= amount;
-        Debug.Log("Boat damaged, current health: " + _health);
+		if (_health - amount <= 0)
+	    {
+	        _health = 0;
+			gameObject.SetActive(false);
+		}
+		else
+		{
+        	_health -= amount;
+		}
     }
 
     public int GetHealth()

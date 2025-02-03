@@ -501,6 +501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 607657836}
   - component: {fileID: 607657837}
+  - component: {fileID: 607657838}
   m_Layer: 0
   m_Name: Vehicle Container
   m_TagString: Untagged
@@ -534,6 +535,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dabd87cdc8c7f99bfb50277cdb460238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boatModel: {fileID: 1894911167}
+--- !u!114 &607657838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607657834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 797149e4f52a4f35867fb62b53d1da4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boatModel: {fileID: 1894911167}

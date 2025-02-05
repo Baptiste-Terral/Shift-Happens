@@ -14,7 +14,7 @@ public class DeveloperCheats : MonoBehaviour
     
     void Update()
     {
-		// Guérir le bateau
+		// Soigner le bateau
         if (Input.GetKeyDown(KeyCode.H)) 
         {
             _boat.Heal(10);

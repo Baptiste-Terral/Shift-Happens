@@ -3,13 +3,11 @@ using UnityEngine;
 public class DeveloperCheats : MonoBehaviour
 {
     [SerializeField]
-    private GameObject boatModel;
-
 	private Boat _boat;
 
     void Start()
     {
-        _boat = boatModel.GetComponent<Boat>();
+        
     }
     
     void Update()
@@ -25,6 +23,18 @@ public class DeveloperCheats : MonoBehaviour
         {
             _boat.TakeDamage(10); 
             Debug.Log("Boat damaged, current health: " + _boat.GetHealth());
+        }
+        
+        // Upgrade le bateau
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            _boat.Upgrade();  
+        }
+        
+        // Reset le bateau
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _boat.setBoatType(BoatType.LEVEL_1);
         }
     }
 }

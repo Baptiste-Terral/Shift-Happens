@@ -1,6 +1,6 @@
 using System;
 
-public enum BoatType
+public enum BoatLevel
 {
     LEVEL_1 = 1,
     LEVEL_2 = 2,

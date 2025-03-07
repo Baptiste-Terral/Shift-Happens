@@ -34,7 +34,7 @@ public class DeveloperCheats : MonoBehaviour
         // Reset le bateau
         if (Input.GetKeyDown(KeyCode.R))
         {
-            _boat.setBoatType(BoatType.LEVEL_1);
+            _boat.SetBoatLevel(BoatLevel.LEVEL_1);
         }
     }
 }

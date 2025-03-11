@@ -1,34 +1,40 @@
 using System.Collections.Generic;
 using System.Data;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Boat : MonoBehaviour
 {
     public float speed = 10.0f;
     public float rotationSpeed = 100.0f;
     
-    private int _health; // Current health
-    private int _baseHealth; // Base health
-    private int _bonusHealth; // Bonus health
-    private int _maxHealth; // Maximum health
+    private float _health; // Current health
+    private float _baseHealth; // Base health
+    private float _bonusHealth; // Bonus health
+    private float _maxHealth; // Maximum health
+    
+    [SerializeField]
+    private HealthBar _healthBar; // Health bar
     
     private int _damage; // Damage dealt by the boat
     private int _baseDamage; // Base damage 
     private	int _bonusDamage; // Bonus damage
     
-    private BoatLevel _level;
-    private BoatLevel _newLevel;
+    private BOAT_LEVEL _level;
+    private BOAT_LEVEL _newLevel;
     
-    private List<GameObject> _boatModels = new List<GameObject>();
+    private List<BoatComponent> _boatModels = new List<BoatComponent>();
 
     private void Start()
     {
-	    _level = BoatLevel.LEVEL_1;
+	    _level = BOAT_LEVEL.LEVEL_1;
 	    _newLevel = _level;
 	    LoadModels();
-	    _boatModels.ForEach(model => model.SetActive(false));
+	    _boatModels.ForEach(model => model.gameObject.SetActive(false));
 	    ChangeModel();
 	    _health = _maxHealth;
+	    UpdateHealthBar();
 	    _damage = _baseDamage;
     }
 
@@ -53,7 +59,7 @@ public class Boat : MonoBehaviour
         transform.Rotate(0, inputedRotation, 0);
     }
     
-    public void Heal(int amount)
+    public void Heal(float amount)
     {
 		if (_health + amount > _maxHealth)
 		{
@@ -63,37 +69,48 @@ public class Boat : MonoBehaviour
 	    {	
 	 		_health += amount;
 		}
+		
+		UpdateHealthBar();
     }
     
-    public void ChangeBonusHealth(int amount)
+    public void ChangeBonusHealth(float amount)
 	{
 	    _bonusHealth += amount;
 	    _health += amount;
 	    
 	    UpdateMaxHealth();
+	    
+	    UpdateHealthBar();
 	}
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
-		if (_health - amount <= 0)
+		if (_health - amount <= 0f)
 	    {
-	        _health = 0;
+	        _health = 0f;
 			gameObject.SetActive(false);
 		}
 		else
 		{
         	_health -= amount;
 		}
+		
+		UpdateHealthBar();
     }
+    
+    private void UpdateHealthBar()
+    {
+	    _healthBar.SetHealth(_health / _maxHealth);
+	}
 
-    public int GetHealth()
+    public float GetHealth()
     {
         return _health;
     }
     
     public void Upgrade()
 	{
-	    if (_newLevel < BoatLevel.LEVEL_5)
+	    if (_newLevel < BOAT_LEVEL.LEVEL_5)
 	    {
 		    _newLevel++;
 		    ChangeModel();
@@ -106,23 +123,20 @@ public class Boat : MonoBehaviour
     
 	private void ChangeModel()
 	{
-		_boatModels[(int)_level - 1].SetActive(false);
+		_boatModels[(int)_level - 1].gameObject.SetActive(false);
 		_level = _newLevel;
-		_boatModels[(int)_level - 1].SetActive(true);
+		_boatModels[(int)_level - 1].gameObject.SetActive(true);
 
 		UpdateBoatStats();
 	}
 	
 	private void LoadModels()
 	{
-		Transform parentTransform = GameObject.Find("Boat").transform;
-		foreach (Transform child in parentTransform)
-		{
-			_boatModels.Add(child.gameObject);
-		}
+		_boatModels = new List<BoatComponent>();
+		_boatModels.AddRange(GetComponentsInChildren<BoatComponent>(true));
 	}
 	
-	public void SetBoatLevel(BoatLevel type)
+	public void SetBoatLevel(BOAT_LEVEL type)
 	{
 		_newLevel = type;
 		ChangeModel();
@@ -130,38 +144,44 @@ public class Boat : MonoBehaviour
 
 	private void UpdateBoatStats()
 	{
-		int healthDifference = _maxHealth - _health;
+		float healthDifference = _maxHealth - _health;
 		
 		switch(_level)
 		{
-			case BoatLevel.LEVEL_1:
+			case BOAT_LEVEL.LEVEL_1:
 				_baseDamage = 10;
-				_baseHealth = 100;
+				_baseHealth = 100f;
 				break;
-			case BoatLevel.LEVEL_2:
+			case BOAT_LEVEL.LEVEL_2:
 				_baseDamage = 15;
-				_baseHealth = 150;
+				_baseHealth = 150f;
 				break;
-			case BoatLevel.LEVEL_3:
+			case BOAT_LEVEL.LEVEL_3:
 				_baseDamage = 20;
-				_baseHealth = 200;
+				_baseHealth = 200f;
 				break;
-			case BoatLevel.LEVEL_4:
+			case BOAT_LEVEL.LEVEL_4:
 				_baseDamage = 25;
-				_baseHealth = 250;
+				_baseHealth = 250f;
 				break;
-			case BoatLevel.LEVEL_5:
+			case BOAT_LEVEL.LEVEL_5:
 				_baseDamage = 30;
-				_baseHealth = 300;
+				_baseHealth = 300f;
 				break;
 		}
 		
 		UpdateMaxHealth();
 		_health = _maxHealth - healthDifference;
+		UpdateHealthBar();
 	}
 
 	private void UpdateMaxHealth()
 	{
 		_maxHealth = _baseHealth + _bonusHealth;
+	}
+
+	public BOAT_LEVEL GetBoatLevel()
+	{
+		return _level;
 	}
 }

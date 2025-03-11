@@ -15,13 +15,13 @@ public class DeveloperCheats : MonoBehaviour
 		// Soigner le bateau
         if (Input.GetKeyDown(KeyCode.H)) 
         {
-            _boat.Heal(10);
+            _boat.Heal(10f);
             Debug.Log("Boat healed, current health: " + _boat.GetHealth());
         }
 		// Endommager le bateau
         if (Input.GetKeyDown(KeyCode.G)) 
         {
-            _boat.TakeDamage(10); 
+            _boat.TakeDamage(10f); 
             Debug.Log("Boat damaged, current health: " + _boat.GetHealth());
         }
         
@@ -34,7 +34,7 @@ public class DeveloperCheats : MonoBehaviour
         // Reset le bateau
         if (Input.GetKeyDown(KeyCode.R))
         {
-            _boat.SetBoatLevel(BoatLevel.LEVEL_1);
+            _boat.SetBoatLevel(BOAT_LEVEL.LEVEL_1);
         }
     }
 }

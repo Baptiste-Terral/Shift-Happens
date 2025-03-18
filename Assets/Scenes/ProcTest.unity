@@ -542,8 +542,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ab7feb0311d03f4db39e708876b1a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TidalTileReference: {fileID: 390271168989396046, guid: 5866e41488f35124a9e06c293f80526c, type: 3}
+  TidalTileReference: {fileID: 390271168989396046, guid: 5a22be7f36f71f749abb6942f7082b26, type: 3}
   OceanTerrain: {fileID: 1598296673}
+  m_debugTidalTileReference: {fileID: 390271168989396046, guid: 5866e41488f35124a9e06c293f80526c, type: 3}
 --- !u!1 &1598296673
 GameObject:
   m_ObjectHideFlags: 0

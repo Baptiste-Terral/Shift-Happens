@@ -25,7 +25,20 @@ public class MagnitudeGen : MonoBehaviour
 
     private int m_width = 0;
     private int m_heigth = 0;
+    private Vector2 m_windDirection = Vector2.zero;
 
+    private bool m_canUpdateMap = true;
+
+
+    public bool canUpdateMap
+    {
+        get { return m_canUpdateMap; }
+    }
+
+    public Vector2 windDirection
+    {
+        set { m_windDirection = value; }
+    }
     private void Generate()
     {
         StopAllCoroutines();
@@ -34,9 +47,7 @@ public class MagnitudeGen : MonoBehaviour
 
     private IEnumerator CrtGenerate(int width, int heigth)
     {
-
-        int interationSteps = Mathf.RoundToInt((width * heigth) / 100f);
-
+        m_canUpdateMap = false;
         foreach (NoiseMap noise in m_noiseMaps)
         {
             noise.Generate(width, heigth);
@@ -44,6 +55,20 @@ public class MagnitudeGen : MonoBehaviour
         }
 
         TidalGenerator.Instance.onMagnitudeGen.Invoke(m_noiseMaps);
+        m_canUpdateMap = true;
+    }
+
+    private IEnumerator CrtUpdate()
+    {
+        m_canUpdateMap = false;
+        foreach (NoiseMap map in m_noiseMaps)
+        {
+            map.UpdateMap(m_windDirection * Time.time);
+            yield return false;
+        }
+
+        TidalGenerator.Instance.onMagnitudeGen.Invoke(m_noiseMaps);
+        m_canUpdateMap = true;
     }
 
     public void Initialize(int width, int heigth)
@@ -57,5 +82,10 @@ public class MagnitudeGen : MonoBehaviour
         m_heigth = heigth;
 
         Generate();
+    }
+
+    public void UpdateMap()
+    {
+        StartCoroutine(CrtUpdate());
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using Unity.VisualScripting;
 
 public class TidalTile : MonoBehaviour
 {
@@ -8,7 +9,9 @@ public class TidalTile : MonoBehaviour
     [SerializeField] private float m_force = 0f;
     [SerializeField] private Vector2 m_direction = Vector2.zero;
 
+#if UNITY_EDITOR
     [SerializeField] private TMP_Text m_tidalText = default;
+#endif
 
     private Vector3 m_tileStart = Vector3.zero;
     private Vector3 m_tileEnd = Vector3.zero;
@@ -39,6 +42,7 @@ public class TidalTile : MonoBehaviour
         m_tileEnd = transform.position - new Vector3(-scale.x / 2, 0, scale.z / 2);
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (TidalGenerator.Instance.debug)
@@ -55,4 +59,5 @@ public class TidalTile : MonoBehaviour
             m_tidalText.enabled = false;
         }
     }
+#endif
 }

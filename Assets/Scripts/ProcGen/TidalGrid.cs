@@ -8,13 +8,14 @@ public class TidalGrid : MonoBehaviour
 {
 
     [SerializeField] private GameObject TidalTileReference = default;
+
     [SerializeField] private GameObject OceanTerrain = default;
 
     private Vector2 m_oceanSize = Vector2.zero;
     private Vector2 m_tileSize = Vector2.zero;
     private Vector2 m_oceanStartPoint = Vector2.zero;
 
-    private Dictionary<int, GameObject> m_grid = new Dictionary<int, GameObject>();
+    private Dictionary<int, TidalTile> m_grid = new Dictionary<int, TidalTile>();
 
     // Garbage management
     private int m_id = 0;
@@ -22,19 +23,25 @@ public class TidalGrid : MonoBehaviour
     private float m_right = 0f;
     private float m_up = 0f;
 
+    // Debug
+    [SerializeField] private GameObject m_debugTidalTileReference = default;
+
 
     private void AddTile(Vector2 coordinates, int newId)
     {
         float x = m_oceanStartPoint.x + ((coordinates.x * m_tileSize.x) + (m_tileSize.x / 2));
         float y = OceanTerrain.transform.position.y;
         float z = m_oceanStartPoint.y - ((coordinates.y * m_tileSize.y) + (m_tileSize.y / 2));
-
+#if UNITY_EDITOR
+        GameObject tile = Instantiate(m_debugTidalTileReference, new Vector3(x, y, z), Quaternion.identity, transform);
+#else
         GameObject tile = Instantiate(TidalTileReference, new Vector3(x, y, z), Quaternion.identity, transform);
-
+#endif
         tile.transform.localScale = new Vector3(m_tileSize.x, 0.1f, m_tileSize.y);
         tile.GetComponent<TidalTile>().ID = newId;
 
-        m_grid.Add(newId, tile);
+
+        m_grid.Add(newId, tile.GetComponent<TidalTile>());
     }
 
     private void RemoveTile(int id)
@@ -44,7 +51,7 @@ public class TidalGrid : MonoBehaviour
 
     private void UpdateTile(int id, float noiseForce, float noiseRight, float noiseUp)
     {
-        TidalTile tile = m_grid[id].GetComponent<TidalTile>();
+        TidalTile tile = m_grid[id];
 
         tile.force = noiseForce;
         tile.direction = new Vector2(noiseRight, noiseUp);
@@ -61,11 +68,14 @@ public class TidalGrid : MonoBehaviour
         }
     }
 
-    private void UpdateGrid(List<NoiseMap> noises)
+    public void UpdateGrid(List<NoiseMap> noises)
     {
-        for (int x = 0; x < noises[0].noiseMap.GetLength(0); x++)
+        int width = noises[0].noiseMap.GetLength(0);
+        int heigth = noises[0].noiseMap.GetLength(1);
+
+        for (int x = 0; x < width; x++)
         {
-            for (int y = 0; y < noises[0].noiseMap.GetLength(1); y++)
+            for (int y = 0; y < heigth; y++)
             {
 
                 foreach(NoiseMap map in noises)

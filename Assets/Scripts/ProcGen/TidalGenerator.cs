@@ -1,5 +1,5 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +12,8 @@ public class TidalGenerator : MonoBehaviour
 
     [SerializeField] private int m_gridWidth = 64;
     [SerializeField] private int m_gridHeigth = 64;
+
+    private bool m_canUpdateWind = true;
 
     public UnityEvent<List<NoiseMap>> onMagnitudeGen;
 
@@ -36,6 +38,23 @@ public class TidalGenerator : MonoBehaviour
     {
         m_tidalGrid.Initialize(m_gridWidth, m_gridHeigth);
         m_magnitudeGen.Initialize(m_gridWidth, m_gridHeigth);
+        StartCoroutine(UpdateWind());
+    }
+
+    private IEnumerator UpdateWind()
+    {
+        m_canUpdateWind = false;
+
+        m_magnitudeGen.windDirection = new Vector2(Random.Range(-100f, 100f), Random.Range(-100f, 100f)).normalized;
+        yield return new WaitForSeconds(Random.Range(30, 90));
+
+        m_canUpdateWind = true;
+    }
+
+    private void Update()
+    {
+        if (m_magnitudeGen.canUpdateMap) m_magnitudeGen.UpdateMap();
+        if (m_canUpdateWind) StartCoroutine(UpdateWind());
     }
 
     /// <summary>

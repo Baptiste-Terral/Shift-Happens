@@ -56,6 +56,8 @@ public class PauseMenu : MonoBehaviour
     public void ReturnToMainMenu()
     {
         SceneManager.LoadScene(0);
+        
+        Resume();
     }
 
     public void ToggleMusic()

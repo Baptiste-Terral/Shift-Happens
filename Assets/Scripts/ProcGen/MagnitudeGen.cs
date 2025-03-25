@@ -63,11 +63,11 @@ public class MagnitudeGen : MonoBehaviour
         m_canUpdateMap = false;
         foreach (NoiseMap map in m_noiseMaps)
         {
-            map.UpdateMap(m_windDirection * Time.time);
-            yield return false;
+            yield return StartCoroutine(map.UpdateMap(m_windDirection * Time.time));
         }
 
         TidalGenerator.Instance.onMagnitudeGen.Invoke(m_noiseMaps);
+        Debug.Log("Notify update");
         m_canUpdateMap = true;
     }
 

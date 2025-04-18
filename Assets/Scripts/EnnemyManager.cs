@@ -7,17 +7,18 @@ public class EnnemyManager : MonoBehaviour
     private int timer = 0;
     private int numberVague = 0;
     private int seed = 0;
-    [SerializeField] private GameObject ennemyGameObject;
+    private EnnemyBehaviour ennemyGameObject;
     [SerializeField] private List<Ennemy> allEnnemyType = new List<Ennemy>();
-    [SerializeField] private List<EnnemyBehaviour> allEnnemyInScene = new List<EnnemyBehaviour>();
+    private List<EnnemyBehaviour> allEnnemyInScene = new List<EnnemyBehaviour>();
     void Start()
     {
+        ennemyGameObject = gameObject.GetComponentInChildren<EnnemyBehaviour>();
         UnityEngine.Random.InitState(seed);
-        for (int i = 0; i < allEnnemyType.Count; i++)
-        {
+        //for (int i = 0; i < allEnnemyType.Count; i++)
+        //{
             //Vector2 position = ChooseRandomPosition();
             //Generate(allEnnemyType[i],new Vector2(i,i));
-        }
+        //}
     }
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class EnnemyManager : MonoBehaviour
         timer += 1;
         if (timer%24==0)
         {
-            if ((timer/24)%60==0)
+            if ((timer/24)%30==0)
             {
                 UdapteVague();
             }
@@ -37,7 +38,6 @@ public class EnnemyManager : MonoBehaviour
     {
         numberVague += 1;
         int vagueCost = numberVague;
-        print("test");
         while (vagueCost > 0)
         {
             int numEnnemyType = Random.Range(0, allEnnemyType.Count);

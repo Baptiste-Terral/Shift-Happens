@@ -58,9 +58,9 @@ public class Boat : MonoBehaviour
     {
         Vector3 currentAppliedOnBoat = TidalGenerator.Instance.GetMagnitudeOnShip(new Rect(transform.position.x, transform.position.z, 1f, 1f));
         Debug.Log(currentAppliedOnBoat);
-        
-        // Applique une force pour simuler le déplacement
-        Vector3 force = transform.forward * inputedTranslation + currentAppliedOnBoat;
+
+		// Applique une force pour simuler le déplacement
+		Vector3 force = transform.forward * inputedTranslation;// + currentAppliedOnBoat;
         rb.AddForce(force, ForceMode.Force);
 
         // Applique un torque pour la rotation

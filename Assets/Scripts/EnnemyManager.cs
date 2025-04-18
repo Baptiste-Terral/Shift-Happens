@@ -6,19 +6,12 @@ public class EnnemyManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private int timer = 0;
     private int numberVague = 0;
-    private int seed = 0;
     private EnnemyBehaviour ennemyGameObject;
     [SerializeField] private List<Ennemy> allEnnemyType = new List<Ennemy>();
     private List<EnnemyBehaviour> allEnnemyInScene = new List<EnnemyBehaviour>();
     void Start()
     {
         ennemyGameObject = gameObject.GetComponentInChildren<EnnemyBehaviour>();
-        UnityEngine.Random.InitState(seed);
-        //for (int i = 0; i < allEnnemyType.Count; i++)
-        //{
-            //Vector2 position = ChooseRandomPosition();
-            //Generate(allEnnemyType[i],new Vector2(i,i));
-        //}
     }
 
     // Update is called once per frame
@@ -27,7 +20,7 @@ public class EnnemyManager : MonoBehaviour
         timer += 1;
         if (timer%24==0)
         {
-            if ((timer/24)%30==0)
+            if ((timer/24)%10==0)
             {
                 UdapteVague();
             }
@@ -43,7 +36,7 @@ public class EnnemyManager : MonoBehaviour
             int numEnnemyType = Random.Range(0, allEnnemyType.Count);
             if (vagueCost-allEnnemyType[numEnnemyType].Cost>=0)
             {
-                Vector2 position = new Vector2(1,1);//ChooseRandomPosition();
+                Vector2 position = ChooseMapRandomPosition(-60,-60,115,115);
                 Generate(allEnnemyType[numEnnemyType], position);
                 vagueCost = vagueCost - allEnnemyType[numEnnemyType].Cost;
             }
@@ -61,5 +54,23 @@ public class EnnemyManager : MonoBehaviour
     public void MoveAllEnnemy()
     {
 
+    }
+
+    public Vector2 ChooseMapRandomPosition(int mapX, int mapY, int width, int height)
+    {
+        int number = Random.Range(0, width * 2+ height *2-4);
+        int x, y;
+        if (number< width * 2)
+        {
+            x = mapX + number % width;
+            y = mapY + number / width * height;
+        }
+        else
+        {
+            number = number - width*2;
+            x = mapX + number / height * width;
+            y = mapY + number % height;
+        }
+        return new Vector2(x, y);
     }
 }

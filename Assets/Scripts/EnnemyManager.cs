@@ -5,16 +5,18 @@ public class EnnemyManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private int timer = 0;
+    private int numberVague = 0;
+    private int seed = 0;
     [SerializeField] private GameObject ennemyGameObject;
     [SerializeField] private List<Ennemy> allEnnemyType = new List<Ennemy>();
     [SerializeField] private List<EnnemyBehaviour> allEnnemyInScene = new List<EnnemyBehaviour>();
     void Start()
     {
-
-        for(int i = 0; i < allEnnemyType.Count; i++)
+        UnityEngine.Random.InitState(seed);
+        for (int i = 0; i < allEnnemyType.Count; i++)
         {
             //Vector2 position = ChooseRandomPosition();
-            Generate(allEnnemyType[i],new Vector2(i,i));
+            //Generate(allEnnemyType[i],new Vector2(i,i));
         }
     }
 
@@ -26,9 +28,27 @@ public class EnnemyManager : MonoBehaviour
         {
             if ((timer/24)%60==0)
             {
-                print("test");
+                UdapteVague();
             }
         }
+    }
+
+    public void UdapteVague()
+    {
+        numberVague += 1;
+        int vagueCost = numberVague;
+        print("test");
+        while (vagueCost > 0)
+        {
+            int numEnnemyType = Random.Range(0, allEnnemyType.Count);
+            if (vagueCost-allEnnemyType[numEnnemyType].Cost>=0)
+            {
+                Vector2 position = new Vector2(1,1);//ChooseRandomPosition();
+                Generate(allEnnemyType[numEnnemyType], position);
+                vagueCost = vagueCost - allEnnemyType[numEnnemyType].Cost;
+            }
+        }
+
     }
     public void Generate(Ennemy ennemyType, Vector2 position)
     {

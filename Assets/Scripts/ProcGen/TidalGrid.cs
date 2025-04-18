@@ -72,7 +72,6 @@ public class TidalGrid : MonoBehaviour
 
     public void UpdateGrid(List<NoiseMap> noises)
     {
-        Debug.Log("Update Grid");
         int width = noises[0].noiseMap.GetLength(0);
         int heigth = noises[0].noiseMap.GetLength(1);
 
@@ -88,6 +87,7 @@ public class TidalGrid : MonoBehaviour
                     {
                         case NOISE_NAME.FORCE:
                             m_force = map.noiseMap[x, y];
+                            m_force = m_force < 0f ? -m_force : m_force;
                             bufferColor.r = m_force;
                             break;
 
@@ -134,16 +134,23 @@ public class TidalGrid : MonoBehaviour
     public Vector3 GetMagnitude(Rect shipPosition)
     {
         Vector2 sumMagnitudes = Vector2.zero;
+        Debug.Log("Ocean Start : " + m_oceanStartPoint);
+        Debug.Log("Ship Position Start : " + shipPosition.min);
+        Debug.Log("Ship position End : " + shipPosition.max);
         int denominator = 0;
 
         for (int x = (int)((shipPosition.xMin - m_oceanStartPoint.x)/m_tileSize.x); x < (int)((shipPosition.xMax - m_oceanStartPoint.x) / m_tileSize.x); x++)
         {
             for (int y = (int)((shipPosition.yMin - m_oceanStartPoint.y) / m_tileSize.y); y < (int)((shipPosition.yMax - m_oceanStartPoint.y) / m_tileSize.y); y++)
             {
+                Debug.Log(x + ", " + y);
+                Debug.Log(x * (int)TidalGenerator.Instance.gridSize.y + y);
                 sumMagnitudes += m_grid[x * (int)TidalGenerator.Instance.gridSize.y + y].GetComponent<TidalTile>().magnitude;
                 denominator++;
             }
         }
+
+        Debug.Log("Final denominator : " + denominator);
 
         return new Vector3(sumMagnitudes.x, 0, sumMagnitudes.y) / denominator;
     }

@@ -56,10 +56,11 @@ public class Boat : MonoBehaviour
 
     public void Move(float inputedTranslation, float inputedRotation)
     {
-        //TidalGenerator.Instance.GetMagnitudeOnShip();
+        Vector3 currentAppliedOnBoat = TidalGenerator.Instance.GetMagnitudeOnShip(new Rect(transform.position.x, transform.position.z, 1f, 1f));
+        Debug.Log(currentAppliedOnBoat);
         
         // Applique une force pour simuler le déplacement
-        Vector3 force = transform.forward * inputedTranslation;
+        Vector3 force = transform.forward * inputedTranslation + currentAppliedOnBoat;
         rb.AddForce(force, ForceMode.Force);
 
         // Applique un torque pour la rotation

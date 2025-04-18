@@ -62,7 +62,7 @@ public class TidalGenerator : MonoBehaviour
     /// </summary>
     /// <param name="shipPosition">The projection of the ship position on the ocean. BE CAREFUL not to have yMax > yMin or xMax > xMin</param>
     /// <returns></returns>
-    public Vector3 GetMagnitudeOnShip(Rect shipPosition)
+    public Vector3 GetMagnitudeOnShip(Vector3 shipPosition)
     {
         return m_tidalGrid.GetMagnitude(shipPosition);
     }

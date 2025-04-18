@@ -6,7 +6,6 @@ using NOISE_NAME = NoiseData.NOISE_NAME;
 
 public class TidalGrid : MonoBehaviour
 {
-
     [SerializeField] private GameObject TidalTileReference = default;
 
     [SerializeField] private GameObject OceanTerrain = default;
@@ -44,11 +43,6 @@ public class TidalGrid : MonoBehaviour
 
 
         m_grid.Add(newId, tile.GetComponent<TidalTile>());
-    }
-
-    private void RemoveTile(int id)
-    {
-        m_grid.Remove(id);
     }
 
     private void UpdateTile(int id, float noiseForce, float noiseRight, float noiseUp)
@@ -129,29 +123,12 @@ public class TidalGrid : MonoBehaviour
         Shader.SetGlobalTexture("g_oceanBuffer", m_oceanBuffer);
     }
 
-
-
-    public Vector3 GetMagnitude(Rect shipPosition)
+    public Vector2 GetMagnitude(Vector3 shipPosition)
     {
-        Vector2 sumMagnitudes = Vector2.zero;
-        Debug.Log("Ocean Start : " + m_oceanStartPoint);
-        Debug.Log("Ship Position Start : " + shipPosition.min);
-        Debug.Log("Ship position End : " + shipPosition.max);
-        int denominator = 0;
+        int x = (int)((shipPosition.x - m_oceanStartPoint.x) / m_tileSize.x);
+        int y = (int)((shipPosition.z - m_oceanStartPoint.y) / m_tileSize.y);
 
-        for (int x = (int)((shipPosition.xMin - m_oceanStartPoint.x)/m_tileSize.x); x < (int)((shipPosition.xMax - m_oceanStartPoint.x) / m_tileSize.x); x++)
-        {
-            for (int y = (int)((shipPosition.yMin - m_oceanStartPoint.y) / m_tileSize.y); y < (int)((shipPosition.yMax - m_oceanStartPoint.y) / m_tileSize.y); y++)
-            {
-                Debug.Log(x + ", " + y);
-                Debug.Log(x * (int)TidalGenerator.Instance.gridSize.y + y);
-                sumMagnitudes += m_grid[x * (int)TidalGenerator.Instance.gridSize.y + y].GetComponent<TidalTile>().magnitude;
-                denominator++;
-            }
-        }
-
-        Debug.Log("Final denominator : " + denominator);
-
-        return new Vector3(sumMagnitudes.x, 0, sumMagnitudes.y) / denominator;
+        Vector2 magnitude = m_grid[x * (int)TidalGenerator.Instance.gridSize.x + y].GetComponent<TidalTile>().magnitude;
+        return new Vector3(magnitude.x, 0, magnitude.y);
     }
 }

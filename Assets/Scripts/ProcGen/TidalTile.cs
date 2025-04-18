@@ -28,7 +28,7 @@ public class TidalTile : MonoBehaviour
     }
     public Vector2 direction
     {
-        set { m_direction = value; }
+        set { m_direction = value - new Vector2(0.5f, 0.5f); }
     }
     public Vector2 magnitude
     {

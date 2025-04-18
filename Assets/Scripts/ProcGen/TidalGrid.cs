@@ -17,6 +17,8 @@ public class TidalGrid : MonoBehaviour
 
     private Dictionary<int, TidalTile> m_grid = new Dictionary<int, TidalTile>();
 
+    private Texture2D m_oceanBuffer;
+
     // Garbage management
     private int m_id = 0;
     private float m_force = 0f;
@@ -70,6 +72,7 @@ public class TidalGrid : MonoBehaviour
 
     public void UpdateGrid(List<NoiseMap> noises)
     {
+        Debug.Log("Update Grid");
         int width = noises[0].noiseMap.GetLength(0);
         int heigth = noises[0].noiseMap.GetLength(1);
 
@@ -77,6 +80,7 @@ public class TidalGrid : MonoBehaviour
         {
             for (int y = 0; y < heigth; y++)
             {
+                Color bufferColor = new Color();
 
                 foreach(NoiseMap map in noises)
                 {
@@ -84,21 +88,27 @@ public class TidalGrid : MonoBehaviour
                     {
                         case NOISE_NAME.FORCE:
                             m_force = map.noiseMap[x, y];
+                            bufferColor.r = m_force;
                             break;
 
                         case NOISE_NAME.RIGHT:
                             m_right = map.noiseMap[x, y];
+                            bufferColor.g = m_right;
                             break;
 
                         case NOISE_NAME.UP:
                             m_up = map.noiseMap[x, y];
+                            bufferColor.b = m_up;
                             break;
                     }
                 }
 
+                m_oceanBuffer.SetPixel(x, y, bufferColor);
                 UpdateTile(x * noises[0].noiseMap.GetLength(0) + y, m_force, m_right, m_up);
             }
         }
+
+        m_oceanBuffer.Apply();
     }
 
     public void Initialize(int width, int heigth)
@@ -114,6 +124,9 @@ public class TidalGrid : MonoBehaviour
         CreateTileSet(width, heigth);
 
         TidalGenerator.Instance.onMagnitudeGen.AddListener(UpdateGrid);
+
+        m_oceanBuffer = new Texture2D(width, heigth);
+        Shader.SetGlobalTexture("g_oceanBuffer", m_oceanBuffer);
     }
 
 

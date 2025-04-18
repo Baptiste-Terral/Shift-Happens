@@ -98,5 +98,6 @@ public class NoiseMap
                 if (iterations % ((width * heigth) / 5f) == 0) yield return null;
             }
         }
+
     }
 }

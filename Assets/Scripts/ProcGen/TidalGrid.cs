@@ -6,7 +6,6 @@ using NOISE_NAME = NoiseData.NOISE_NAME;
 
 public class TidalGrid : MonoBehaviour
 {
-
     [SerializeField] private GameObject TidalTileReference = default;
 
     [SerializeField] private GameObject OceanTerrain = default;
@@ -16,6 +15,8 @@ public class TidalGrid : MonoBehaviour
     private Vector2 m_oceanStartPoint = Vector2.zero;
 
     private Dictionary<int, TidalTile> m_grid = new Dictionary<int, TidalTile>();
+
+    private Texture2D m_oceanBuffer;
 
     // Garbage management
     private int m_id = 0;
@@ -42,11 +43,6 @@ public class TidalGrid : MonoBehaviour
 
 
         m_grid.Add(newId, tile.GetComponent<TidalTile>());
-    }
-
-    private void RemoveTile(int id)
-    {
-        m_grid.Remove(id);
     }
 
     private void UpdateTile(int id, float noiseForce, float noiseRight, float noiseUp)
@@ -77,6 +73,7 @@ public class TidalGrid : MonoBehaviour
         {
             for (int y = 0; y < heigth; y++)
             {
+                Color bufferColor = new Color();
 
                 foreach(NoiseMap map in noises)
                 {
@@ -84,21 +81,28 @@ public class TidalGrid : MonoBehaviour
                     {
                         case NOISE_NAME.FORCE:
                             m_force = map.noiseMap[x, y];
+                            m_force = m_force < 0f ? -m_force : m_force;
+                            bufferColor.r = m_force;
                             break;
 
                         case NOISE_NAME.RIGHT:
                             m_right = map.noiseMap[x, y];
+                            bufferColor.g = m_right;
                             break;
 
                         case NOISE_NAME.UP:
                             m_up = map.noiseMap[x, y];
+                            bufferColor.b = m_up;
                             break;
                     }
                 }
 
+                m_oceanBuffer.SetPixel(x, y, bufferColor);
                 UpdateTile(x * noises[0].noiseMap.GetLength(0) + y, m_force, m_right, m_up);
             }
         }
+
+        m_oceanBuffer.Apply();
     }
 
     public void Initialize(int width, int heigth)
@@ -114,24 +118,17 @@ public class TidalGrid : MonoBehaviour
         CreateTileSet(width, heigth);
 
         TidalGenerator.Instance.onMagnitudeGen.AddListener(UpdateGrid);
+
+        m_oceanBuffer = new Texture2D(width, heigth);
+        Shader.SetGlobalTexture("g_oceanBuffer", m_oceanBuffer);
     }
 
-
-
-    public Vector3 GetMagnitude(Rect shipPosition)
+    public Vector2 GetMagnitude(Vector3 shipPosition)
     {
-        Vector2 sumMagnitudes = Vector2.zero;
-        int denominator = 0;
+        int x = (int)((shipPosition.x - m_oceanStartPoint.x) / m_tileSize.x);
+        int y = (int)((shipPosition.z - m_oceanStartPoint.y) / m_tileSize.y);
 
-        for (int x = (int)((shipPosition.xMin - m_oceanStartPoint.x)/m_tileSize.x); x < (int)((shipPosition.xMax - m_oceanStartPoint.x) / m_tileSize.x); x++)
-        {
-            for (int y = (int)((shipPosition.yMin - m_oceanStartPoint.y) / m_tileSize.y); y < (int)((shipPosition.yMax - m_oceanStartPoint.y) / m_tileSize.y); y++)
-            {
-                sumMagnitudes += m_grid[x * (int)TidalGenerator.Instance.gridSize.y + y].GetComponent<TidalTile>().magnitude;
-                denominator++;
-            }
-        }
-
-        return new Vector3(sumMagnitudes.x, 0, sumMagnitudes.y) / denominator;
+        Vector2 magnitude = m_grid[x * (int)TidalGenerator.Instance.gridSize.x + y].GetComponent<TidalTile>().magnitude;
+        return new Vector3(magnitude.x, 0, magnitude.y);
     }
 }

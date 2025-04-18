@@ -923,6 +923,7 @@ Transform:
   - {fileID: 2118953388}
   - {fileID: 949511920}
   - {fileID: 1323931540}
+  - {fileID: 1540951874}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &607657838
@@ -953,6 +954,9 @@ MonoBehaviour:
   speed: 10
   rotationSpeed: 100
   _healthBar: {fileID: 128471997}
+  _cannonballPrefab: {fileID: 2935307847167515738, guid: 73c9788b27f1cba4a8a802b10301dde1, type: 3}
+  _cannonballModel: {fileID: 919132149155446097, guid: eb52180dcf6bda4088de1034d465acc6, type: 3}
+  _firePoint: {fileID: 1540951874}
 --- !u!54 &607657840
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2204,6 +2208,37 @@ MonoBehaviour:
   TidalTileReference: {fileID: 390271168989396046, guid: 5a22be7f36f71f749abb6942f7082b26, type: 3}
   OceanTerrain: {fileID: 1660996617}
   m_debugTidalTileReference: {fileID: 390271168989396046, guid: 5866e41488f35124a9e06c293f80526c, type: 3}
+--- !u!1 &1540951873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1540951874}
+  m_Layer: 0
+  m_Name: BoatFirepoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1540951874
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540951873}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.025911331, y: 0.42017233, z: 4.7258196}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 607657836}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1563887706
 PrefabInstance:
   m_ObjectHideFlags: 0

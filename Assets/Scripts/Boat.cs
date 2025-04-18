@@ -17,6 +17,10 @@ public class Boat : MonoBehaviour
     [SerializeField]
     private HealthBar _healthBar; // Health bar
     
+    [SerializeField] private GameObject _cannonballPrefab;     // Prefab avec rigidbody et logique
+    [SerializeField] private GameObject _cannonballModel;      // Modele 3D
+    [SerializeField] private Transform _firePoint;			   // Point de tir du canon
+    
     private int _damage; // Damage dealt by the boat
     private int _baseDamage; // Base damage 
     private	int _bonusDamage; // Bonus damage
@@ -52,6 +56,11 @@ public class Boat : MonoBehaviour
 	    float inputedRotation = Input.GetAxis("Horizontal") * rotationSpeed;
 
 	    Move(inputedTranslation, inputedRotation);
+	    
+	    if (Input.GetKeyDown(KeyCode.Space))
+	    {
+		    Shoot();
+	    }
     }
 
     public void Move(float inputedTranslation, float inputedRotation)
@@ -192,5 +201,13 @@ public class Boat : MonoBehaviour
 	public BOAT_LEVEL GetBoatLevel()
 	{
 		return _level;
+	}
+
+	public void Shoot()
+	{
+		GameObject cannonball = Instantiate(_cannonballPrefab, _firePoint.position, Quaternion.identity);
+		var script = cannonball.GetComponent<Cannonball>();
+		script.SetModel(_cannonballModel); 
+		script.SetOwner(transform);
 	}
 }

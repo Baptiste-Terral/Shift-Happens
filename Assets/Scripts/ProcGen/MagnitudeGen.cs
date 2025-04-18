@@ -67,7 +67,7 @@ public class MagnitudeGen : MonoBehaviour
         }
 
         TidalGenerator.Instance.onMagnitudeGen.Invoke(m_noiseMaps);
-        Debug.Log("Notify update");
+        //Debug.Log("Notify update");
         m_canUpdateMap = true;
     }
 

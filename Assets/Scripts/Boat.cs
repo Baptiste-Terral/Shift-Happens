@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class Boat : MonoBehaviour
 {
-    public float speed = 10.0f;
-    public float rotationSpeed = 100.0f;
+    public float speed = 100.0f;
+    public float rotationSpeed = 10f;
     
     private float _health; // Current health
     private float _baseHealth; // Base health
@@ -26,6 +26,8 @@ public class Boat : MonoBehaviour
     
     private List<BoatComponent> _boatModels = new List<BoatComponent>();
 
+    private Rigidbody rb;
+    
     private void Start()
     {
 	    _level = BOAT_LEVEL.LEVEL_1;
@@ -36,6 +38,11 @@ public class Boat : MonoBehaviour
 	    _health = _maxHealth;
 	    UpdateHealthBar();
 	    _damage = _baseDamage;
+	    
+	    rb = GetComponent<Rigidbody>();
+	    rb.useGravity = false; // Gravité
+		rb.linearDamping = 2.5f; // Résistance pour simuler la friction de l'eau
+		rb.angularDamping = 40f; // Résistance à la rotation
     }
 
     private void Update()
@@ -49,14 +56,16 @@ public class Boat : MonoBehaviour
 
     public void Move(float inputedTranslation, float inputedRotation)
     {
-		// Allows moving 10 meters per second instead of 10 meters per frame
-		inputedTranslation *= Time.deltaTime;
-		inputedRotation *= Time.deltaTime;
+        Vector3 currentAppliedOnBoat = TidalGenerator.Instance.GetMagnitudeOnShip(new Rect(transform.position.x, transform.position.z, 1f, 1f));
+        Debug.Log(currentAppliedOnBoat);
         
-        // Move the boat
-        transform.Translate(0, 0, inputedTranslation);
-        // Rotate the boat
-        transform.Rotate(0, inputedRotation, 0);
+        // Applique une force pour simuler le déplacement
+        Vector3 force = transform.forward * inputedTranslation + currentAppliedOnBoat;
+        rb.AddForce(force, ForceMode.Force);
+
+        // Applique un torque pour la rotation
+        Vector3 torque = Vector3.up * inputedRotation;
+        rb.AddTorque(torque, ForceMode.Force);
     }
     
     public void Heal(float amount)

@@ -296,13 +296,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 73996485}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.3887895, z: -0, w: 0.9213267}
-  m_LocalPosition: {x: -4.0961, y: -0, z: -4.4025}
-  m_LocalScale: {x: 17.980059, y: 1, z: 12.027138}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 45.758, z: 0}
+  m_Father: {fileID: 1660996618}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &128471994
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,6 +896,7 @@ GameObject:
   - component: {fileID: 607657836}
   - component: {fileID: 607657839}
   - component: {fileID: 607657838}
+  - component: {fileID: 607657840}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Untagged
@@ -952,6 +953,33 @@ MonoBehaviour:
   speed: 10
   rotationSpeed: 100
   _healthBar: {fileID: 128471997}
+--- !u!54 &607657840
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607657834}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &686195498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1978,7 +2006,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &1323931538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2174,7 +2202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TidalTileReference: {fileID: 390271168989396046, guid: 5a22be7f36f71f749abb6942f7082b26, type: 3}
-  OceanTerrain: {fileID: 0}
+  OceanTerrain: {fileID: 1660996617}
   m_debugTidalTileReference: {fileID: 390271168989396046, guid: 5866e41488f35124a9e06c293f80526c, type: 3}
 --- !u!1001 &1563887706
 PrefabInstance:
@@ -2333,6 +2361,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1609961508}
   m_CullTransparentMesh: 1
+--- !u!1 &1660996617
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1660996618}
+  m_Layer: 0
+  m_Name: Map Reference
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1660996618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660996617}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.0961, y: 0, z: -4.4025}
+  m_LocalScale: {x: 117.74725, y: 117.74725, z: 117.74725}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 73996489}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1810877030
 GameObject:
   m_ObjectHideFlags: 0
@@ -2383,7 +2443,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &1810877033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2717,7 +2777,7 @@ SceneRoots:
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
-  - {fileID: 73996489}
+  - {fileID: 1660996618}
   - {fileID: 607657836}
   - {fileID: 1024582389}
   - {fileID: 1810877035}

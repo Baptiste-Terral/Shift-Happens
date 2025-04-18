@@ -40,7 +40,7 @@ public class Cannonball : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.velocity = _ownerTransform.forward * 30f;
+            rb.linearVelocity = _ownerTransform.forward * 30f;
             transform.forward = _ownerTransform.forward;
         }
 

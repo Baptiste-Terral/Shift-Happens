@@ -2119,7 +2119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 439edf833874fb341ba9341fa4b1afc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_tidalDebug: 1
+  m_tidalDebug: 0
   m_tidalGrid: {fileID: 1480296507}
   m_magnitudeGen: {fileID: 1422166372}
   m_gridWidth: 64

@@ -6,17 +6,16 @@ using UnityEngine.Audio;
 public class EnnemyBehaviour : MonoBehaviour
 {
     private Ennemy ennemyData;
-    private int _health;
+    private float _health;
     private Rigidbody rb;
-    [SerializeField] private Boat player;
+    private Boat player;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public void Setup(Ennemy ennemyData)
+    public void Setup(Ennemy ennemyData, Boat player)
     {
         this.ennemyData= ennemyData;
         _health = ennemyData.MaxHealth;
-        player = GameObject.FindObjectsOfType<Boat>()[0];
-
+        this.player = player;
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false; // Gravité
         rb.linearDamping = 2.5f; // Résistance pour simuler la friction de l'eau
@@ -46,16 +45,6 @@ public class EnnemyBehaviour : MonoBehaviour
         return angleDegrees * sign;
     }
 
-    /*public static float calculateAngle(Vector3 pointA, Vector3 pointB, Vector3 pointC)
-    {
-        Vector3 vectorAB = (pointB - pointA).normalized;
-        Vector3 vectorBC = (pointC - pointB).normalized;
-        float dotProduct = Vector3.Dot(vectorAB, vectorBC);
-        float angleRadians = Mathf.Acos(dotProduct);
-        float angleDegrees = angleRadians * Mathf.Rad2Deg;
-        return angleDegrees;
-    }*/
-
     public static Vector3 calculatePoint(Vector3 startPoint, Quaternion rotation, float distance)
     {
         Vector3 forward = rotation * Vector3.forward;
@@ -65,9 +54,11 @@ public class EnnemyBehaviour : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject);
-        if (collision.gameObject.GetComponent<Cannonball>())
+        Cannonball bulletScript = collision.gameObject.GetComponent<Cannonball>();
+        if (bulletScript)
         {
+            Debug.Log(bulletScript.GetDamage());
+            //TakeDamage(bulletScript.GetDamage());
             Destroy(collision.gameObject, 0);
             Destroy(this.gameObject, 0);
         }
@@ -85,14 +76,6 @@ public class EnnemyBehaviour : MonoBehaviour
         // Horizontal and vertical inputs
         float inputedTranslation = 1 * ennemyData.Speed;
         float inputedRotation = rotation * ennemyData.RotationSpeed;
-        /*if (rotationLeft<= rotationRight)
-        {
-            inputedRotation = rotationLeft * ennemyData.RotationSpeed;
-        }
-        else
-        {
-            inputedRotation = rotationRight * ennemyData.RotationSpeed;
-        }*/
 
         Vector3 currentAppliedOnEnnemy = TidalGenerator.Instance.GetMagnitudeOnShip(transform.position);
 
@@ -105,20 +88,21 @@ public class EnnemyBehaviour : MonoBehaviour
         rb.AddTorque(torque, ForceMode.Force);
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (_health - amount <= 0)
         {
             _health = 0;
-            gameObject.SetActive(false);
+            Destroy(this.gameObject,0f);
         }
         else
         {
+            this.gameObject.GetComponentInChildren<HealthBar>().SetHealth(_health / ennemyData.MaxHealth);
             _health -= amount;
         }
     }
 
-    public int GetHealth()
+    public float GetHealth()
     {
         return _health;
     }

@@ -4,10 +4,11 @@ using UnityEngine;
 public class EnnemyManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private int timer = 0;
+    private float timer = 0;
     private int numberVague = 0;
     private EnnemyBehaviour ennemyGameObject;
     [SerializeField] private GameObject OceanTerrain;
+    [SerializeField] private Boat player;
     [SerializeField] private List<Ennemy> allEnnemyType = new List<Ennemy>();
     private List<EnnemyBehaviour> allEnnemyInScene = new List<EnnemyBehaviour>();
     void Start()
@@ -18,14 +19,13 @@ public class EnnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += 1;
-        if (timer%24==0)
+        timer += Time.deltaTime;
+        if (timer>10f)
         {
-            if ((timer/24)%10==0)
-            {
-                UdapteVague();
-            }
+            UdapteVague();
+            timer -= 10f;
         }
+
     }
 
     public void UdapteVague()
@@ -49,14 +49,9 @@ public class EnnemyManager : MonoBehaviour
     public void Generate(Ennemy ennemyType, Vector2 position)
     {
         EnnemyBehaviour model = Instantiate(ennemyType.Model, new Vector3(position.x, 0, position.y), Quaternion.identity);
-        model.Setup(ennemyType);
+        model.Setup(ennemyType, player);
         model.transform.SetParent(ennemyGameObject.transform);
         allEnnemyInScene.Add(model);
-    }
-
-    public void MoveAllEnnemy()
-    {
-
     }
 
     public Vector2 ChooseMapRandomPosition(int centerX, int centerY, int width, int height)

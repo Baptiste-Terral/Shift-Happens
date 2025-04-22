@@ -10,14 +10,14 @@ public class Ennemy : ScriptableObject
     private float _rotationSpeed;
     public float RotationSpeed { get { return _rotationSpeed; } }
     [SerializeField]
-    private int _maxHealth;
-    public int MaxHealth { get { return _maxHealth; } }
+    private float _maxHealth;
+    public float MaxHealth { get { return _maxHealth; } }
     [SerializeField]
-    private int _damage;
-    public int Damage { get { return _damage; } }
+    private float _damage;
+    public float Damage { get { return _damage; } }
     [SerializeField]
-    private int _bodyDamage;
-    public int BodyDamage { get { return _bodyDamage; } }
+    private float _bodyDamage;
+    public float BodyDamage { get { return _bodyDamage; } }
     [SerializeField]
     private EnnemyBehaviour _model;
     public EnnemyBehaviour Model { get { return _model; } }

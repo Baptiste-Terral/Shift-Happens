@@ -81,18 +81,19 @@ public class TidalGrid : MonoBehaviour
                     {
                         case NOISE_NAME.FORCE:
                             m_force = map.noiseMap[x, y];
-                            m_force = m_force < 0f ? -m_force : m_force;
                             bufferColor.r = m_force;
                             break;
 
                         case NOISE_NAME.RIGHT:
                             m_right = map.noiseMap[x, y];
                             bufferColor.g = m_right;
+                            m_right = (m_right - 0.5f) * 2;
                             break;
 
                         case NOISE_NAME.UP:
                             m_up = map.noiseMap[x, y];
                             bufferColor.b = m_up;
+                            m_up = (m_right - 0.5f) * 2;
                             break;
                     }
                 }
@@ -123,7 +124,7 @@ public class TidalGrid : MonoBehaviour
         Shader.SetGlobalTexture("g_oceanBuffer", m_oceanBuffer);
     }
 
-    public Vector2 GetMagnitude(Vector3 shipPosition)
+    public Vector3 GetMagnitude(Vector3 shipPosition)
     {
         int x = (int)((shipPosition.x - m_oceanStartPoint.x) / m_tileSize.x);
         int y = (int)((shipPosition.z - m_oceanStartPoint.y) / m_tileSize.y);

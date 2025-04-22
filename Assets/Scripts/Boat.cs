@@ -32,6 +32,10 @@ public class Boat : MonoBehaviour
     private BOAT_LEVEL _level;
     private BOAT_LEVEL _newLevel;
     
+    private int _healthUpgradeLevel = 0; // Niveau d'amélioration de la santé
+    private int _damageUpgradeLevel = 0; // Niveau d'amélioration des dégâts
+    private int _speedUpgradeLevel = 0;  // Niveau d'amélioration de la vitesse
+    
     private List<BoatComponent> _boatModels = new List<BoatComponent>();
 
     private Rigidbody rb;
@@ -64,6 +68,15 @@ public class Boat : MonoBehaviour
 	    if (Input.GetKeyDown(KeyCode.Space))
 	    {
 		    Shoot();
+	    }
+
+	    // Si les upgrades sont suffisantes, on peut passer au niveau suivant
+	    if ((int)_level <= 5)
+	    {
+		    if ((int)_level == _healthUpgradeLevel && (int)_level == _damageUpgradeLevel && (int)_level == _speedUpgradeLevel)
+            {
+                Upgrade();
+            }
 	    }
     }
 
@@ -145,6 +158,9 @@ public class Boat : MonoBehaviour
 	    {
 		    _newLevel++;
 		    ChangeModel();
+		    SetHealthUpgradeLevel((int)_level - 1);
+		    SetDamageUpgradeLevel((int)_level - 1);
+		    SetSpeedUpgradeLevel((int)_level - 1);
 	    }
 	    else
 	    {
@@ -182,6 +198,7 @@ public class Boat : MonoBehaviour
 			case BOAT_LEVEL.LEVEL_1:
 				_baseDamage = 10;
 				_baseHealth = 100f;
+				SetSpeed(30);
 				break;
 			case BOAT_LEVEL.LEVEL_2:
 				_baseDamage = 15;
@@ -233,5 +250,35 @@ public class Boat : MonoBehaviour
 	public void SetRotationSpeed(float rotationSpeed)
 	{
 		this.rotationSpeed = rotationSpeed;
+	}
+	
+	public void SetHealthUpgradeLevel(int level)
+	{
+		_healthUpgradeLevel = level;
+	}
+	
+	public void SetDamageUpgradeLevel(int level)
+	{
+		_damageUpgradeLevel = level;
+	}
+	
+	public void SetSpeedUpgradeLevel(int level)
+	{
+		_speedUpgradeLevel = level;
+	}
+	
+	public int GetHealthUpgradeLevel()
+	{
+		return _healthUpgradeLevel;
+	}
+	
+	public int GetDamageUpgradeLevel()
+	{
+		return _damageUpgradeLevel;
+	}
+	
+	public int GetSpeedUpgradeLevel()
+	{
+		return _speedUpgradeLevel;
 	}
 }

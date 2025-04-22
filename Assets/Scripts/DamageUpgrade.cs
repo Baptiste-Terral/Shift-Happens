@@ -7,6 +7,11 @@ public class DamageUpgrade : Powerup
 
     public override void Consume(Boat boat)
     {
-        boat.ChangeBonusDamage(bonusDamage);
+        if (boat.GetDamageUpgradeLevel() < (int)boat.GetBoatLevel())
+        {
+            boat.ChangeBonusDamage(bonusDamage);
+
+            boat.SetDamageUpgradeLevel(boat.GetDamageUpgradeLevel() + 1);
+        }
     }
 }

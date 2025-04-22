@@ -17,6 +17,6 @@ MonoBehaviour:
   _maxHealth: 100
   _damage: 10
   _bodyDamage: 10
-  _model: {fileID: 7735027944395169010, guid: 9e82c183a32a3f94b876e8162e5ccab6, type: 3}
+  _model: {fileID: 7735027944395169010, guid: 73d323f2bf2100944b12310a6d4ade3f, type: 3}
   _cost: 1
   _level: 1

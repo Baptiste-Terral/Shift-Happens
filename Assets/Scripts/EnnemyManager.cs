@@ -7,6 +7,7 @@ public class EnnemyManager : MonoBehaviour
     private int timer = 0;
     private int numberVague = 0;
     private EnnemyBehaviour ennemyGameObject;
+    [SerializeField] private GameObject OceanTerrain;
     [SerializeField] private List<Ennemy> allEnnemyType = new List<Ennemy>();
     private List<EnnemyBehaviour> allEnnemyInScene = new List<EnnemyBehaviour>();
     void Start()
@@ -36,7 +37,9 @@ public class EnnemyManager : MonoBehaviour
             int numEnnemyType = Random.Range(0, allEnnemyType.Count);
             if (vagueCost-allEnnemyType[numEnnemyType].Cost>=0)
             {
-                Vector2 position = ChooseMapRandomPosition(-60,-60,115,115);
+                Vector3 size = OceanTerrain.GetComponent<MeshRenderer>().bounds.size;
+                Vector3 center = OceanTerrain.GetComponent<MeshRenderer>().bounds.center;
+                Vector2 position = ChooseMapRandomPosition((int)center.x,(int)center.z,(int)size.x-10,(int)size.z-10);
                 Generate(allEnnemyType[numEnnemyType], position);
                 vagueCost = vagueCost - allEnnemyType[numEnnemyType].Cost;
             }
@@ -56,8 +59,10 @@ public class EnnemyManager : MonoBehaviour
 
     }
 
-    public Vector2 ChooseMapRandomPosition(int mapX, int mapY, int width, int height)
+    public Vector2 ChooseMapRandomPosition(int centerX, int centerY, int width, int height)
     {
+        int mapX = centerX - width/2;
+        int mapY = centerY - height/2;
         int number = Random.Range(0, width * 2+ height *2-4);
         int x, y;
         if (number< width * 2)

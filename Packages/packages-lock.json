@@ -128,7 +128,7 @@
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "17.0.4",
+      "version": "17.0.3",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
@@ -179,7 +179,7 @@
       }
     },
     "com.unity.test-framework": {
-      "version": "1.4.6",
+      "version": "1.4.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {

@@ -224,4 +224,14 @@ public class Boat : MonoBehaviour
 		script.SetOwner(transform);
 		script.SetDamage(_damage);
 	}
+	
+	public void SetSpeed(float speed)
+	{
+		this.speed = speed;
+	}
+	
+	public void SetRotationSpeed(float rotationSpeed)
+	{
+		this.rotationSpeed = rotationSpeed;
+	}
 }

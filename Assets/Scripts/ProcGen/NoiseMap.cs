@@ -56,8 +56,6 @@ public class NoiseMap
                 float2 coords = new float2(coordsOffseted.x / m_scale, coordsOffseted.y / m_scale);
 
                 m_color = m_data.noise_type.ApplyNoise(coords, m_seed % 10000);
-                m_color = math.remap(-1f, 1f, 0f, 1f, m_color);
-
                 for (int filterIndex = 0; filterIndex < m_data.noise_filters.Count; filterIndex++)
                 {
                     m_color = m_data.noise_filters[filterIndex].ApplyFilter(m_color);
@@ -71,11 +69,15 @@ public class NoiseMap
         m_data.preview = m_preview;
     }
 
-    public IEnumerator UpdateMap(Vector2 windOffset)
+    public void UpdateMap(Vector2 windOffset)
     {
         int iterations = 0;
         int width = m_colors.GetLength(0);
         int heigth = m_colors.GetLength(1);
+
+        //windOffset = Vector2.zero;
+
+        m_preview = new Texture2D(width, heigth);
 
         for (int x = 0; x < width; x++)
         {
@@ -86,18 +88,25 @@ public class NoiseMap
                 float2 coords = new float2(coordsOffseted.x / m_scale, coordsOffseted.y / m_scale);
 
                 m_color = m_data.noise_type.ApplyNoise(coords, m_seed % 10000);
-                m_color = math.remap(-1f, 1f, 0f, 1f, m_color);
 
                 for (int filterIndex = 0; filterIndex < m_data.noise_filters.Count; filterIndex++)
                 {
                     m_color = m_data.noise_filters[filterIndex].ApplyFilter(m_color);
                 }
 
-                m_colors[x, y] = m_color;
+                //m_color = math.remap(-1f, 1f, 0f, 1f, m_color);
 
-                if (iterations % ((width * heigth) / 5f) == 0) yield return null;
+                m_colors[x, y] = m_color;
+                m_preview.SetPixel(x, y, Color.white * m_color);
+
+                //if (iterations % ((width * heigth) / 5f) == 0) yield return null;
             }
         }
+
+        m_preview.Apply();
+        m_data.preview = m_preview;
+
+        //yield break;
 
     }
 }

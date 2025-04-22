@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -87,13 +88,13 @@ public class TidalGrid : MonoBehaviour
                         case NOISE_NAME.RIGHT:
                             m_right = map.noiseMap[x, y];
                             bufferColor.g = m_right;
-                            m_right = (m_right - 0.5f) * 2;
+                            m_right = math.remap(0f, 1f, -1f, 1f, m_right);
                             break;
 
                         case NOISE_NAME.UP:
                             m_up = map.noiseMap[x, y];
                             bufferColor.b = m_up;
-                            m_up = (m_right - 0.5f) * 2;
+                            m_up = math.remap(0f, 1f, -1f, 1f, m_up);
                             break;
                     }
                 }
@@ -130,6 +131,7 @@ public class TidalGrid : MonoBehaviour
         int y = (int)((shipPosition.z - m_oceanStartPoint.y) / m_tileSize.y);
 
         Vector2 magnitude = m_grid[x * (int)TidalGenerator.Instance.gridSize.x + y].GetComponent<TidalTile>().magnitude;
+        Debug.Log(magnitude);
         return new Vector3(magnitude.x, 0, magnitude.y);
     }
 }

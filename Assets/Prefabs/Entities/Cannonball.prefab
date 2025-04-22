@@ -95,3 +95,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 5
+  _modelPrefab: {fileID: 919132149155446097, guid: eb52180dcf6bda4088de1034d465acc6, type: 3}

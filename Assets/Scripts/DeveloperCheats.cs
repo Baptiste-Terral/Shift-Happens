@@ -36,5 +36,12 @@ public class DeveloperCheats : MonoBehaviour
         {
             _boat.SetBoatLevel(BOAT_LEVEL.LEVEL_1);
         }
+        
+        // Vitesse et Rotation cheat
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            _boat.SetSpeed(150f);
+            _boat.SetRotationSpeed(800f);
+        }
     }
 }

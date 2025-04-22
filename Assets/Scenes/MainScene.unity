@@ -230,7 +230,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -2675,6 +2675,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6734e830f04c39438a997ab5c73eb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerupPrefabs:
+  - {fileID: 2470968441849974275, guid: 64b0b71a341a27e4dbe592ce15d139ed, type: 3}
+  - {fileID: 170643965304097356, guid: b4ec1d713efe73c499eeeb5e32c0cbae, type: 3}
+  - {fileID: 4066923176588732157, guid: fc910d9d8ae0d2748b8e761435409178, type: 3}
+  spawnInterval: 5
+  spawnRange: 10
 --- !u!1 &1810877030
 GameObject:
   m_ObjectHideFlags: 0

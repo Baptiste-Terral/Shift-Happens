@@ -37,7 +37,7 @@ public class TidalTile : MonoBehaviour
     {
         if (TidalGenerator.Instance.debug)
         {
-            Debug.DrawRay(transform.position, new Vector3(m_direction.x, 0, 1f) * 3, Color.magenta, 0.1f);
+            Debug.DrawRay(transform.position, new Vector3(m_direction.x, 0, m_direction.y) * 3, Color.magenta, 0.1f);
         }
         else
         {

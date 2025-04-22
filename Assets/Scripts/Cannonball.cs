@@ -4,6 +4,8 @@ public class Cannonball : MonoBehaviour
 {
     public float lifetime = 45f;
     
+    private float _damage = 0f;
+    
     [SerializeField] private GameObject _modelPrefab;
     
     private Transform _ownerTransform;
@@ -46,6 +48,16 @@ public class Cannonball : MonoBehaviour
 
         // Détruire le canonball après une certaine durée
         Destroy(gameObject, lifetime);
+    }
+    
+    public void SetDamage(float damage)
+    {
+        _damage = damage;
+    }
+
+    public float GetDamage()
+    {
+        return _damage;
     }
 
     // Gestion de la collision avec d'autres objets (commenté pour l'instant)

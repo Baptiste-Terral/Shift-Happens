@@ -13,6 +13,10 @@ public class Boat : MonoBehaviour
     private float _baseHealth; // Base health
     private float _bonusHealth; // Bonus health
     private float _maxHealth; // Maximum health
+
+    private int _healthLevel; // Health level
+    private int _damageLevel; // Damage level
+    private int _speedLevel; // Speed level
     
     [SerializeField]
     private HealthBar _healthBar; // Health bar
@@ -21,9 +25,9 @@ public class Boat : MonoBehaviour
     [SerializeField] private GameObject _cannonballModel;      // Modele 3D
     [SerializeField] private Transform _firePoint;			   // Point de tir du canon
     
-    private int _damage; // Damage dealt by the boat
-    private int _baseDamage; // Base damage 
-    private	int _bonusDamage; // Bonus damage
+    private float _damage; // Damage dealt by the boat
+    private float _baseDamage; // Base damage 
+    private	float _bonusDamage; // Bonus damage
     
     private BOAT_LEVEL _level;
     private BOAT_LEVEL _newLevel;
@@ -95,9 +99,19 @@ public class Boat : MonoBehaviour
 	    _bonusHealth += amount;
 	    _health += amount;
 	    
+	    _healthLevel++;
+	    
 	    UpdateMaxHealth();
 	    
 	    UpdateHealthBar();
+	}
+
+	public void ChangeBonusDamage(float amount)
+	{
+		_bonusDamage += amount;
+		_damage += amount;
+		
+		_damageLevel++;
 	}
 
     public void TakeDamage(float amount)
@@ -208,5 +222,6 @@ public class Boat : MonoBehaviour
 		var script = cannonball.GetComponent<Cannonball>();
 		script.SetModel(_cannonballModel); 
 		script.SetOwner(transform);
+		script.SetDamage(_damage);
 	}
 }

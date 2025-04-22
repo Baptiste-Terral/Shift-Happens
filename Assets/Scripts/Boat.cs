@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Boat : MonoBehaviour
+public class Boat : MonoBehaviour, IDamageable
 {
     public float speed = 100.0f;
     public float rotationSpeed = 10f;

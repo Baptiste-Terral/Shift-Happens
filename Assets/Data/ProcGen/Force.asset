@@ -36,10 +36,10 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 2|NoiseData+Power, Assembly-CSharp
-    - Name: m_power
+      Data: 2|NoiseData+Test2, Assembly-CSharp
+    - Name: fixedValue
       Entry: 4
-      Data: 1.33
+      Data: 1
     - Name: 
       Entry: 8
       Data: 

@@ -4,6 +4,7 @@ using System;
 using Sirenix.OdinInspector;
 using System.Drawing;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 
 [CreateAssetMenu(fileName = "Noise", menuName = "Scriptable Objects/Noise")]
 public class NoiseData : SerializedScriptableObject
@@ -31,12 +32,11 @@ public class NoiseData : SerializedScriptableObject
 
     public class Test2 : IFilter
     {
-        public float test;
-        public int frqdzaerf;
+        public float fixedValue;
 
         public float ApplyFilter(float color)
         {
-            return color * test + frqdzaerf;
+            return fixedValue;
         }
     }
 
@@ -57,7 +57,7 @@ public class NoiseData : SerializedScriptableObject
     {
         public float ApplyNoise(float2 coordinates, float seed)
         {
-            return noise.snoise(coordinates + seed);
+            return math.remap(-1f, 1f, 0f, 1f, noise.snoise(coordinates + seed));
         }
     }
 
@@ -65,7 +65,7 @@ public class NoiseData : SerializedScriptableObject
     {
         public float ApplyNoise(float2 coordinates, float seed)
         {
-            return noise.cnoise(coordinates + seed);
+            return math.remap(-1f, 1f, 0f, 1f, noise.cnoise(coordinates + seed));
         }
     }
 

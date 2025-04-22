@@ -130,8 +130,15 @@ public class TidalGrid : MonoBehaviour
         int x = (int)((shipPosition.x - m_oceanStartPoint.x) / m_tileSize.x);
         int y = (int)((shipPosition.z - m_oceanStartPoint.y) / m_tileSize.y);
 
-        Vector2 magnitude = m_grid[x * (int)TidalGenerator.Instance.gridSize.x + y].GetComponent<TidalTile>().magnitude;
-        Debug.Log(magnitude);
+        Vector2 magnitude = Vector2.zero;
+        try
+        {
+            magnitude = m_grid[x * (int)TidalGenerator.Instance.gridSize.x + y].GetComponent<TidalTile>().magnitude;
+        }
+        catch
+        {
+            Debug.LogWarning("Ship is out of bound");
+        }
         return new Vector3(magnitude.x, 0, magnitude.y);
     }
 }

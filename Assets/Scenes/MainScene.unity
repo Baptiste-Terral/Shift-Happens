@@ -3128,6 +3128,67 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.428, y: 0.64, z: 2.3721461}
   m_Center: {x: 0, y: 0.32, z: 0}
+--- !u!1001 &3763697971707844960
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5182107563712168155, guid: 02542e4be8245084a9c4dc63493842e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182107563712168155, guid: 02542e4be8245084a9c4dc63493842e1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182107563712168155, guid: 02542e4be8245084a9c4dc63493842e1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182107563712168155, guid: 02542e4be8245084a9c4dc63493842e1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182107563712168155, guid: 02542e4be8245084a9c4dc63493842e1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182107563712168155, guid: 02542e4be8245084a9c4dc63493842e1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182107563712168155, guid: 02542e4be8245084a9c4dc63493842e1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182107563712168155, guid: 02542e4be8245084a9c4dc63493842e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182107563712168155, guid: 02542e4be8245084a9c4dc63493842e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182107563712168155, guid: 02542e4be8245084a9c4dc63493842e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595179636658385037, guid: 02542e4be8245084a9c4dc63493842e1, type: 3}
+      propertyPath: m_Name
+      value: RockManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8621882315181839337, guid: 02542e4be8245084a9c4dc63493842e1, type: 3}
+      propertyPath: OceanTerrain
+      value: 
+      objectReference: {fileID: 73996485}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02542e4be8245084a9c4dc63493842e1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3142,3 +3203,4 @@ SceneRoots:
   - {fileID: 1422166371}
   - {fileID: 1810376739}
   - {fileID: 1136106340}
+  - {fileID: 3763697971707844960}

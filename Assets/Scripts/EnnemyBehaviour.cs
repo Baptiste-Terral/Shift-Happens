@@ -58,9 +58,9 @@ public class EnnemyBehaviour : MonoBehaviour
         if (bulletScript)
         {
             Debug.Log(bulletScript.GetDamage());
-            //TakeDamage(bulletScript.GetDamage());
+            TakeDamage(bulletScript.GetDamage());
             Destroy(collision.gameObject, 0);
-            Destroy(this.gameObject, 0);
+            //Destroy(this.gameObject, 0);
         }
     }
 

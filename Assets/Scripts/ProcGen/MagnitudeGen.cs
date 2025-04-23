@@ -58,16 +58,18 @@ public class MagnitudeGen : MonoBehaviour
         m_canUpdateMap = true;
     }
 
-    private IEnumerator CrtUpdate()
+    private void CrtUpdate()
     {
         m_canUpdateMap = false;
         foreach (NoiseMap map in m_noiseMaps)
         {
-            yield return StartCoroutine(map.UpdateMap(m_windDirection * Time.time));
+            map.UpdateMap(m_windDirection * Time.time);
         }
 
         TidalGenerator.Instance.onMagnitudeGen.Invoke(m_noiseMaps);
         m_canUpdateMap = true;
+
+        //yield break;
     }
 
     public void Initialize(int width, int heigth)
@@ -85,6 +87,6 @@ public class MagnitudeGen : MonoBehaviour
 
     public void UpdateMap()
     {
-        StartCoroutine(CrtUpdate());
+        CrtUpdate();
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -81,18 +82,19 @@ public class TidalGrid : MonoBehaviour
                     {
                         case NOISE_NAME.FORCE:
                             m_force = map.noiseMap[x, y];
-                            m_force = m_force < 0f ? -m_force : m_force;
                             bufferColor.r = m_force;
                             break;
 
                         case NOISE_NAME.RIGHT:
                             m_right = map.noiseMap[x, y];
                             bufferColor.g = m_right;
+                            m_right = math.remap(0f, 1f, -1f, 1f, m_right);
                             break;
 
                         case NOISE_NAME.UP:
                             m_up = map.noiseMap[x, y];
                             bufferColor.b = m_up;
+                            m_up = math.remap(0f, 1f, -1f, 1f, m_up);
                             break;
                     }
                 }
@@ -123,12 +125,20 @@ public class TidalGrid : MonoBehaviour
         Shader.SetGlobalTexture("g_oceanBuffer", m_oceanBuffer);
     }
 
-    public Vector2 GetMagnitude(Vector3 shipPosition)
+    public Vector3 GetMagnitude(Vector3 shipPosition)
     {
         int x = (int)((shipPosition.x - m_oceanStartPoint.x) / m_tileSize.x);
         int y = (int)((shipPosition.z - m_oceanStartPoint.y) / m_tileSize.y);
 
-        Vector2 magnitude = m_grid[x * (int)TidalGenerator.Instance.gridSize.x + y].GetComponent<TidalTile>().magnitude;
+        Vector2 magnitude = Vector2.zero;
+        try
+        {
+            magnitude = m_grid[x * (int)TidalGenerator.Instance.gridSize.x + y].GetComponent<TidalTile>().magnitude;
+        }
+        catch
+        {
+            Debug.LogWarning("Ship is out of bound");
+        }
         return new Vector3(magnitude.x, 0, magnitude.y);
     }
 }

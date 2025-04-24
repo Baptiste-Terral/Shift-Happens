@@ -24,6 +24,7 @@ public class Boat : MonoBehaviour, IDamageable
     [SerializeField] private GameObject _cannonballPrefab;     // Prefab avec rigidbody et logique
     [SerializeField] private GameObject _cannonballModel;      // Modele 3D
     [SerializeField] private Transform _firePoint;			   // Point de tir du canon
+    [SerializeField] private GameObject _cannonballsContainer; // Conteneur pour les cannonballs
     
     private float _damage; // Damage dealt by the boat
     private float _baseDamage; // Base damage 
@@ -240,6 +241,7 @@ public class Boat : MonoBehaviour, IDamageable
 		script.SetModel(_cannonballModel); 
 		script.SetOwner(transform);
 		script.SetDamage(_damage);
+		script.GetComponentInChildren<Cannonball>().transform.SetParent(_cannonballsContainer.transform);
 	}
 	
 	public void SetSpeed(float speed)

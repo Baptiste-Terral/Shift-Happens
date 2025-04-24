@@ -517,6 +517,11 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &397959324 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8915044965908766622, guid: 76c6da1407a129648b0412bd986905c2, type: 3}
+  m_PrefabInstance: {fileID: 50154369611906400}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2571,6 +2576,10 @@ PrefabInstance:
       propertyPath: _bulletContainer
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 486396430490191895, guid: 76c6da1407a129648b0412bd986905c2, type: 3}
+      propertyPath: _cannonballsContainer
+      value: 
+      objectReference: {fileID: 397959324}
     - target: {fileID: 1850050825800509524, guid: 76c6da1407a129648b0412bd986905c2, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

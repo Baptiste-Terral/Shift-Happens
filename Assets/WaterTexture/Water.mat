@@ -109,10 +109,11 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _GlobalWaveSize: 0.0525
+    - _GlobalWaveSize: 0.0689
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _MaxY: 0.071
     - _Metallic: 0.589
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -131,8 +132,10 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Base_Color: {r: 0, g: 0.45173693, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Riples_Color: {r: 0.20361131, g: 0.76821434, b: 0.91194963, a: 0}
     - _SectorCount: {r: 64, g: 64, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _UVScale: {r: 64, g: 64, b: 0, a: 0}

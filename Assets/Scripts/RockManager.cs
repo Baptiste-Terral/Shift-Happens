@@ -10,8 +10,8 @@ public class RockManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Vector3 size = OceanTerrain.GetComponent<MeshRenderer>().bounds.size;
-        Vector3 center = OceanTerrain.GetComponent<MeshRenderer>().bounds.center;
+        Vector3 size = OceanTerrain.GetComponentInChildren<MeshRenderer>().bounds.size;
+        Vector3 center = OceanTerrain.GetComponentInChildren<MeshRenderer>().bounds.center;
         Setup((int)center.x, (int)center.z, (int)size.x, (int)size.z);
     }
 

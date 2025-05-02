@@ -38,8 +38,8 @@ public class EnnemyManager : MonoBehaviour
             int numEnnemyType = Random.Range(0, allEnnemyType.Count);
             if (vagueCost-allEnnemyType[numEnnemyType].Cost>=0)
             {
-                Vector3 size = OceanTerrain.GetComponent<MeshRenderer>().bounds.size;
-                Vector3 center = OceanTerrain.GetComponent<MeshRenderer>().bounds.center;
+                Vector3 size = OceanTerrain.GetComponentInChildren<MeshRenderer>().bounds.size;
+                Vector3 center = OceanTerrain.GetComponentInChildren<MeshRenderer>().bounds.center;
                 Vector2 position = ChooseMapRandomPosition((int)center.x,(int)center.z,(int)size.x-10,(int)size.z-10);
                 Generate(allEnnemyType[numEnnemyType], position);
                 vagueCost = vagueCost - allEnnemyType[numEnnemyType].Cost;

@@ -57,7 +57,6 @@ public class EnnemyBehaviour : MonoBehaviour
         Cannonball bulletScript = collision.gameObject.GetComponent<Cannonball>();
         if (bulletScript)
         {
-            Debug.Log(bulletScript.GetDamage());
             TakeDamage(bulletScript.GetDamage());
             Destroy(collision.gameObject, 0);
         }

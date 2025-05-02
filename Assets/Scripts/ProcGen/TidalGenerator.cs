@@ -39,6 +39,9 @@ public class TidalGenerator : MonoBehaviour
         m_tidalGrid.Initialize(m_gridWidth, m_gridHeigth);
         m_magnitudeGen.Initialize(m_gridWidth, m_gridHeigth);
         StartCoroutine(UpdateWind());
+        Shader.SetGlobalFloat("", m_gridWidth);
+        Shader.SetGlobalFloat("", m_gridHeigth);
+        Shader.SetGlobalVector("g_sectorCount", new Vector2(m_gridWidth, m_gridHeigth));
     }
 
     private IEnumerator UpdateWind()

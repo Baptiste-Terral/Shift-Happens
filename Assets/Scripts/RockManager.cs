@@ -4,7 +4,7 @@ using UnityEngine;
 public class RockManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> allRockType;
-    private List<GameObject> allRockInScene;
+    private List<GameObject> allRockInScene = new List<GameObject>();
     [SerializeField] private GameObject rockGameObject;
     [SerializeField] private GameObject OceanTerrain;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -12,26 +12,27 @@ public class RockManager : MonoBehaviour
     {
         Vector3 size = OceanTerrain.GetComponent<MeshRenderer>().bounds.size;
         Vector3 center = OceanTerrain.GetComponent<MeshRenderer>().bounds.center;
-        Setup((int)center.x, (int)center.z, (int)size.x - 5, (int)size.z - 5);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Setup((int)center.x, (int)center.z, (int)size.x, (int)size.z);
     }
 
     void Setup(int centerX, int centerY, int width, int height)
     {
-        int newWidth = width / 5;
-        int newHeight = height / 5;
-        for (int i=0;i<width/5;i++)
+        int mapX = centerX - width / 2;
+        int mapY = centerY - height / 2;
+        for (int i = 0; i<4; i++)
         {
-            for (int j = 0;j<height/5;i++)
+            if (i/2==0)
             {
-                if (i==0 || i== newWidth || j==0 || j== newHeight)
+                for (int j = mapX; j <= width / 2; j = j + 5)
                 {
-                    generateRock(new Vector2(i*5,j*5));
+                    generateRock(new Vector2(j, mapY+height*(i%2)));
+                }
+            }
+            else
+            {
+                for (int j = mapY; j <= height / 2; j = j + 5)
+                {
+                    generateRock(new Vector2(mapX + width * (i % 2),j));
                 }
             }
         }

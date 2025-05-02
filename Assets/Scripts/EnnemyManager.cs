@@ -8,6 +8,7 @@ public class EnnemyManager : MonoBehaviour
     private int numberVague = 0;
     private EnnemyBehaviour ennemyGameObject;
     [SerializeField] private GameObject OceanTerrain;
+    [SerializeField] private float spawnTime = 10f;
     [SerializeField] private Boat player;
     [SerializeField] private List<Ennemy> allEnnemyType = new List<Ennemy>();
     private List<EnnemyBehaviour> allEnnemyInScene = new List<EnnemyBehaviour>();
@@ -20,10 +21,10 @@ public class EnnemyManager : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer>10f)
+        if (timer> spawnTime)
         {
             UdapteVague();
-            timer -= 10f;
+            timer -= spawnTime;
         }
 
     }

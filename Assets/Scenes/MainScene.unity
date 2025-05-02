@@ -1870,8 +1870,8 @@ MonoBehaviour:
   m_tidalDebug: 0
   m_tidalGrid: {fileID: 1480296507}
   m_magnitudeGen: {fileID: 1422166372}
-  m_gridWidth: 64
-  m_gridHeigth: 64
+  m_gridWidth: 16
+  m_gridHeigth: 16
   onMagnitudeGen:
     m_PersistentCalls:
       m_Calls: []

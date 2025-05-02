@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Boat : MonoBehaviour, IDamageable
 {
     public float speed = 100.0f;
-    public float rotationSpeed = 10f;
+    public float rotationSpeed = 150f;
     
     private float _health; // Current health
     private float _baseHealth; // Base health
@@ -165,7 +165,7 @@ public class Boat : MonoBehaviour, IDamageable
 	    }
 	    else
 	    {
-		    Debug.Log("Boat is already at max level");
+		    //Debug.Log("Boat is already at max level");
 	    }
 	}
     

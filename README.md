@@ -1,5 +1,8 @@
 # Shift-Happens
 
+## Scène à lancer pour exécuter le jeu
+"Main Menu.unity"
+
 ## Description
 
 Shift Happens est une survie navale en vue de dessus dans laquelle le joueur contrôle un petit bateau et doit survivre le plus longtemps possible dans un environnement maritime hostile où se mêlent courants et ennemis.

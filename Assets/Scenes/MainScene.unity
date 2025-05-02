@@ -2014,7 +2014,7 @@ PrefabInstance:
       objectReference: {fileID: 470875661}
     - target: {fileID: 3818290875324911765, guid: 2dca8203fd117a245a7ebcbaa317ae46, type: 3}
       propertyPath: spawnTime
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3818290875324911765, guid: 2dca8203fd117a245a7ebcbaa317ae46, type: 3}
       propertyPath: OceanTerrain

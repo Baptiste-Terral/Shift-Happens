@@ -60,7 +60,6 @@ public class EnnemyBehaviour : MonoBehaviour
             Debug.Log(bulletScript.GetDamage());
             TakeDamage(bulletScript.GetDamage());
             Destroy(collision.gameObject, 0);
-            //Destroy(this.gameObject, 0);
         }
     }
 
